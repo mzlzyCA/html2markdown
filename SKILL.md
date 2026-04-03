@@ -1,31 +1,57 @@
 ---
-name: html2markdown
-displayName: HTML to Markdown
-description: |
-  Convert HTML to Markdown with high fidelity. Fetch any URL and transform web pages, HTML files, and HTML snippets into clean, well-formatted Markdown. Website scraping, web content extraction, HTML parsing, webpage conversion, URL fetching, link-to-markdown, site-to-markdown, web-to-text, HTML-to-text, page-to-markdown, web clipping, content grabbing, article extraction, blog post conversion, documentation scraping.
-
-  Use when asked to 'convert this webpage to markdown', 'fetch this URL as markdown', 'scrape this website', 'grab content from this page', 'turn this HTML into markdown', 'download page as text', 'extract article text', 'clip this web page', 'save webpage as markdown', 'read this URL'.
-
-  Solves the problem of unreadable HTML markup, messy copy-paste from websites, broken formatting when saving web content, inability to process web pages in plain text workflows, and needing clean text from complex HTML layouts. Handles tables, lists, headings, links, images, code blocks, and nested structures.
-
-  Powered by MinerU document processing engine for reliable, accurate conversion. Supports both remote URLs and local HTML files. Batch processing multiple pages supported.
-
-  网页转Markdown, URL转Markdown, HTML转换, 网页抓取, 网页内容提取, 网站转文本, 网页剪藏, 文章提取, 博客转换, HTML解析转换
-tags:
-  - html
-  - markdown
-  - web-scraping
-  - url-fetch
-  - conversion
-  - web-clipping
-  - content-extraction
-  - html-parser
-  - webpage
-  - article-extraction
-  - documentation
-  - text-extraction
+name: html-to-markdown
+description: "HTML to Markdown - fetch a remote HTML page (URL) or convert a local HTML file to clean Markdown using MinerU. Use for extracting readable content from web pages."
+homepage: https://mineru.net
+metadata: {"openclaw": {"emoji": "📄", "requires": {"bins": ["mineru-open-api"], "env": ["MINERU_TOKEN"]}, "primaryEnv": "MINERU_TOKEN", "install": [{"id": "npm", "kind": "node", "package": "mineru-open-api", "bins": ["mineru-open-api"], "label": "Install via npm"}, {"id": "go", "kind": "go", "package": "github.com/opendatalab/MinerU-Ecosystem/cli/mineru-open-api", "bins": ["mineru-open-api"], "label": "Install via go install", "os": ["darwin", "linux"]}]}}
 ---
 
 # HTML to Markdown
 
-Use the mineru tool to convert HTML content to clean Markdown format. Accepts URLs to fetch remote pages or local HTML file paths. Preserve document structure including headings, tables, lists, links, images, and code blocks. Output well-formatted Markdown suitable for documentation, note-taking, or further processing.
+Convert HTML files or web page URLs to clean Markdown using MinerU. Removes navigation, ads, and clutter — keeps the readable content.
+
+## Install
+
+```bash
+npm install -g mineru-open-api
+# or via Go (macOS/Linux):
+go install github.com/opendatalab/MinerU-Ecosystem/cli/mineru-open-api@latest
+```
+
+## Quick Start
+
+```bash
+# Convert a web page URL to Markdown (requires token)
+mineru-open-api crawl https://example.com/article -o ./out/
+
+# Convert a local HTML file to Markdown (requires token)
+mineru-open-api extract page.html -o ./out/
+
+# Output to stdout (requires token)
+mineru-open-api crawl https://example.com/article
+```
+
+## Authentication
+
+Token required:
+
+```bash
+mineru-open-api auth             # Interactive token setup
+export MINERU_TOKEN="your-token" # Or via environment variable
+```
+
+Create token at: https://mineru.net/apiManage/token
+
+## Capabilities
+
+- Input: remote web page URL or local .html file
+- Output: Markdown
+- For remote URLs: use `crawl` (token required)
+- For local HTML files: use `extract` (token required)
+- HTML is NOT supported by `flash-extract`
+
+## Notes
+
+- Always requires token (no `flash-extract` support for HTML)
+- Output goes to stdout by default; use `-o <dir>` to save to a file or directory
+- All progress/status messages go to stderr; document content goes to stdout
+- MinerU is open-source by OpenDataLab (Shanghai AI Lab): https://github.com/opendatalab/MinerU
